@@ -1,0 +1,124 @@
+﻿@model BiblotekaWeb.Areas.admin.Models.Libri
+
+@{
+    ViewData["Title"] = "Shto Libër";
+}
+
+<div id="root" class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Shto Libër</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index">Librat</a></li>
+                        <li class="breadcrumb-item active">Shto Libër</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Shto" enctype="multipart/form-data" method="post">
+                            <div class="row">
+                                <h5 class="form-title"><span>Informatat e Librit</span></h5>
+                                <div class="col-12">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Titulli</label>
+                                        <input asp-for="Titulli" class="form-control">
+                                        <span  asp-validation-for="Titulli" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Autori</label>
+                                        <input asp-for="Autori" class="form-control">
+                                        <span asp-validation-for="Autori" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Botuesi</label>
+                                        <input asp-for="Botuesi" class="form-control">
+                                        <span asp-validation-for="Botuesi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Gjuha</label>
+                                        <select asp-for="GjuhaId" asp-items="@(new SelectList(ViewBag.Gjuhet, "GjuhaId", "Emertimi"))" class="form-control">
+                                            <option>Selekto Gjuhen</option>
+                                        </select>
+                                        <span asp-validation-for="GjuhaId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Kategoria</label>
+                                        <select asp-for="KategoriaId" asp-items="@(new SelectList(ViewBag.Kategorite, "KategoriaId", "Emertimi"))" class="form-control">
+                                            <option>Selekto Kategorinë</option>
+                                        </select>
+                                        <span asp-validation-for="KategoriaId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>ISBN</label>
+                                        <input asp-for="Isbn" min="0" class="form-control">
+                                        <span asp-validation-for="Isbn" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Editioni</label>
+                                        <input asp-for="Editioni" min="0" class="form-control">
+                                        <span asp-validation-for="Editioni" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Sasia</label>
+                                        <input v-model="sasia" asp-for="NumriKopjeve" min="0" class="form-control">
+                                        <span asp-validation-for="NumriKopjeve" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Statusi</label>
+                                        <select asp-for="Statusi" class="form-control">
+                                            <option :selected="sasia > 0" value="true">Aktiv</option>
+                                            <option :selected="sasia == 0" value="false">Joaktiv</option>
+                                        </select>
+                                        <span asp-validation-for="Statusi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <label>Foto</label>
+                                    <div class="input-group">
+                                        <input asp-for="Image" accept="image/*" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Shto</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" type="text/javascript"></script>
+    <script src="~/Admin/js/main.js"></script>
+}
+
+

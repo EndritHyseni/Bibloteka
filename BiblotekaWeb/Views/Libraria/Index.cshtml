@@ -1,0 +1,220 @@
+@model BiblotekaWeb.ViewModels.LibrariaViewModel
+@{
+    ViewBag.Title = "Librat Tonë";
+    Layout = "_Layout";
+}
+
+<header class="relative" id="sc1">
+        <!-- Header-background-markup -->
+        <div class="header-bg relative home-slide">
+            <div class="item">
+                <img src="~/Client/images/slide/slider1.jpg" alt="library">
+            </div>
+            <div class="item">
+                <img src="~/Client/images/slide/slider2.jpg" alt="library">
+            </div>
+            <div class="item">
+                <img src="~/Client/images/slide/slider3.jpg" alt="library">
+            </div>
+            <div class="item">
+                <img src="~/Client/images/slide/slider4.jpg" alt="library">
+            </div>
+        </div>
+        <!-- Mainmenu-markup-start -->
+        <div class="mainmenu-area navbar-fixed-top" data-spy="affix" data-offset-top="10">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <div class="space-10"></div>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!--Logo-->
+                        <a href="#sc1" class="navbar-left show"><img src="~/Client/images/eBiblioteka.png" width="200px" height="150px" alt="library"></a>
+                        <div class="space-10"></div>
+                    </div>
+                    <!--Toggle-button-->
+
+                    <!--Active User-->
+                    @await Html.PartialAsync("_UserPartial")
+                    <!--Mainmenu list-->
+                    <div class="navbar-right in fade" id="mainmenu">
+                        <ul class="nav navbar-nav nav-white text-uppercase">
+                            <li>
+                                <a href="/">Ballina</a>
+                            </li>
+                            <li>
+                                <a href="/#sc2">Rreth Nesh</a>
+                            </li>
+                            <li>
+                                <a href="/#sc3">Kategoritë</a>
+                            </li>
+                            <li>
+                                <a href="/#sc4">Stafi</a>
+                            </li>
+                            <li class="active">
+                                <a href="/libraria">Librat</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="space-100">
+        </div>
+        <!-- Header-jumbotron -->
+                <div class="space-100"></div>
+                <div class="header-text">
+                    <div class="container">
+                        <div class="row wow fadeInUp">
+                            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
+                                <div class="jumbotron">
+                                    <h1 class="text-white">Zgjedh librin tuaj dhe kënaqu</h1>
+                                </div>
+                                <div class="title-bar white">
+                                    <ul class="list-inline list-unstyled">
+                                        <li><i class="icofont icofont-square"></i></li>
+                                        <li><i class="icofont icofont-square"></i></li>
+                                    </ul>
+                                </div>
+                                <div class="space-40"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-100"></div>
+                <!-- Header-jumbotron-end -->
+                <div class="space-100"></div>
+    </header>
+
+<section>
+        <div class="space-80"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-10 pull-right">
+                    <h4>Kutia për kërkim</h4>
+                    <div class="space-5"></div>
+                    <form asp-action="Search" asp-route-filter="Titull">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="query" placeholder="Shkruaj titullin e librit">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="space-30"></div>
+                    <div class="row">
+                        @if (!string.IsNullOrEmpty(Model.SearchString))
+                        {
+                            <div class="pull-left col-xs-12 col-sm-5 col-md-6">
+                                <p>Rezultatet për <a href="" class="text-primary">"@Model.SearchString"</a></p>
+                                <p><strong>@Model.Librat.Count()</strong> nga <strong>@ViewBag.TotalLibra</strong> libra u gjetën</p>
+                            </div>
+                        }
+                        <div class="pull-right col-xs-12 col-sm-7 col-md-6">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4" for="sort">Sorto Nga : </label>
+                                    <div class="col-xs-8">
+                                        <div class="form-group">
+                                            <select name="sort" id="sort" class="form-control">
+                                                <option value="">Best Match</option>
+                                                <option value="">Best Book</option>
+                                                <option value="">Latest Book</option>
+                                                <option value="">Old Book</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="space-20"></div>
+                    <div class="row">
+                        @foreach (var liber in Model.Librat)
+                        {
+                            <div class="col-xs-12 col-md-6">
+                                <div class="category-item well yellow">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img src="~/Admin/img/bookImages/@liber.ImageName" width="153" height="238" class="media-object" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <h5>@liber.Titulli</h5>
+                                            <h6>Nga @liber.Autori</h6>
+                                            <div class="space-10"></div>
+                                            <ul class="list-inline list-unstyled rating-star">
+                                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                                <li><i class="icofont icofont-star"></i></li>
+                                            </ul>
+                                            <div class="space-10"></div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
+                                            <a href="books.html" class="text-primary">Shiko Librin</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="space-60"></div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="shop-pagination pull-right">
+                                <ul id="pagination-demo" class="pagination-sm pagination">
+                                    <li class="page-item first"><a href="#" class="page-link">First</a></li>
+                                    <li class="page-item prev"><a href="#" class="page-link">Previous</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">6</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">7</a></li>
+                                    <li class="page-item next"><a href="#" class="page-link">Next</a></li>
+                                    <li class="page-item last"><a href="#" class="page-link">Last</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar-Start -->
+                <div class="col-xs-12 col-md-2">
+                    <aside>
+                        <h3><i class="icofont icofont-filter"></i> Filto nga</h3>
+                        <div class="space-30"></div>
+                        <div class="sigle-sidebar">
+                            <h4>Kategoritë</h4>
+                            <hr>
+                            <ul class="list-unstyled menu-tip">
+                                @foreach (var kategori in Model.Kategorite)
+                                {
+                                    <li><a asp-action="Sort" asp-route-kategoria="@kategori.Emertimi">@kategori.Emertimi</a></li>
+                                }
+                            </ul>
+                            <a asp-action="Index" class="btn btn-primary btn-xs">Shiko të gjithë</a>
+                        </div>
+                        <div class="space-20"></div>
+                        <div class="sigle-sidebar">
+                            <h4>Rating</h4>
+                            <hr>
+                            <ul class="list-inline list-unstyled rating-star">
+                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                <li class="active"><i class="icofont icofont-star"></i></li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+                <!-- Sidebar-End -->
+            </div>
+        </div>
+        <div class="space-80"></div>
+    </section>

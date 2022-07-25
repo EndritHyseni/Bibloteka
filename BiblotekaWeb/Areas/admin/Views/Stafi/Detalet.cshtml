@@ -1,0 +1,85 @@
+@model BiblotekaWeb.Areas.admin.Models.Stafi
+
+@{
+    ViewBag.Title = "Detalet";
+    Layout = "_AdminLayout";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Detalet e Stafit</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Ballina">Ballina</a></li>
+                        <li class="breadcrumb-item active">Stafi</li>
+                    </ul>
+                </div>
+                <div class="col-auto text-right float-right ml-auto">
+                    <a asp-action="Edito" asp-route-id="@Model.StafiId" asp-controller="Stafi" class="btn btn-primary">Edito</a>
+                    <a asp-action="Fshi" asp-route-id="@Model.StafiId" class="btn btn-outline-primary mr-2">Fshi</a>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="about-info">
+                            <h4>Rreth @Model.Emri @Model.Mbiemri</h4>
+                            <div class="media mt-3">
+                                <img src="~/Admin/img/admin.jpg" style="height: 300px; width: 270px" class="mr-3" alt="...">
+                                <div class="media-body" style="margin-left: 50px">
+                                    <ul>
+                                        <li>
+                                            <span class="title-span">Emri : </span>
+                                            <span>@Model.Emri</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Mbiemri : </span>
+                                            <span>@Model.Mbiemri</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Datëlindja : </span>
+                                            <span>@Model.Datalindjes.ToString("dd/MM/yyyy")</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Email : </span>
+                                            <span>@Model.Emaili</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Adresa : </span>
+                                            <span>@Model.Adresa</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Gjinia : </span>
+                                            <span>@Model.Gjinia</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Nr.Kontaktues : </span>
+                                            <span>@Model.Telefoni</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Roli : </span>
+                                            <span>@ViewBag.Roli</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Copyright © 2020 Dreamguys.</p>
+        </footer>
+        <!-- /Footer -->
+    </div>
+    <!-- /Page Wrapper -->

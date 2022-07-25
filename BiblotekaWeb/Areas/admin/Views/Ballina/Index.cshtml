@@ -1,0 +1,269 @@
+﻿@using BiblotekaWeb.Areas.admin.Models
+@model BiblotekaWeb.Areas.admin.ViewModels.BallinaViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Mirësevini @User.Identity.Name</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item active">Ballina</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        <!-- Overview Section -->
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card bg-one">
+                    <div class="card-body">
+                        <div class="db-widgets d-flex justify-content-between align-items-center">
+                            <div class="db-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="db-info">
+                                <h3>@ViewBag.Klientet</h3>
+                                <h6>Klientë</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card bg-two">
+                    <div class="card-body">
+                        <div class="db-widgets d-flex justify-content-between align-items-center">
+                            <div class="db-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="db-info">
+                                <h3>@ViewBag.Librat</h3>
+                                <h6>Libra</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card bg-three">
+                    <div class="card-body">
+                        <div class="db-widgets d-flex justify-content-between align-items-center">
+                            <div class="db-icon">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                            <div class="db-info">
+                                <h3>@ViewBag.Huazimet</h3>
+                                <h6>Huazime</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card bg-four">
+                    <div class="card-body">
+                        <div class="db-widgets d-flex justify-content-between align-items-center">
+                            <div class="db-icon">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="db-info">
+                                <h3>@ViewBag.Kthimet</h3>
+                                <h6>Kthime</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Overview Section -->
+
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
+
+                <!-- Revenue Chart -->
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h5 class="card-title">Statistikë</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div style="width: 500px;margin-left: 100px;height: 915px;min-width: 310px;max-width: 800px;" id="map"></div>
+                    </div>
+                </div>
+                <!-- /Revenue Chart -->
+
+            </div>
+
+            <div class="col-md-12 col-lg-6">
+
+                <!-- Student Chart -->
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h5 class="card-title">Statistikë</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="highchart-bar"></div>
+                    </div>
+                </div>
+                <!-- /Student Chart -->
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h5 class="card-title">Statistikë</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="pie"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 d-flex">
+                <!-- Star Students -->
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <h5 class="card-title">Klientët e dalluar</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Emri Plotë</th>
+                                        <th class="text-center">Numri Personal</th>
+                                        <th class="text-right">Huazimet</th>
+                                        <th class="text-center">Adresa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var klient in Model.Klientet)
+                                    {
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <div>@klient.KlientiId</div>
+                                            </td>
+                                            <td class="text-nowrap">@klient.Emri @klient.Mbiemri</td>
+                                            <td class="text-center">@klient.NrPersonal</td>
+                                            @if (klient.Huazimet == null)
+                                            {
+                                                <td class="text-center">0</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center">@klient.Huazimet</td>
+                                            }
+                                            <td class="text-center">
+                                                <div>@klient.Adresa</div>
+                                            </td>
+                                        </tr>
+                                    }    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Star Students -->
+            </div>
+
+            <div class="col-md-6 d-flex">
+                <!-- Feed Activity -->
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <h5 class="card-title">Aktivitetet</h5>
+                    </div>
+                    <div class="card-body" style="margin-left: -20px; margin-top: -10px">
+                        <ul class="activity-feed">
+                           <div class="card-body">
+                           	   @foreach (var aktiviteti in Model.Aktivitetet)
+		                          {
+		                              if (aktiviteti.Tipi == Tipet.Huazim)
+		                              {
+		                                  <li class="feed-item">
+                                              <div class="feed-date">@aktiviteti.Data.ToString("f")</div>
+                                              <span class="feed-text"><a>@aktiviteti.Klienti.Emri @aktiviteti.Klienti.Mbiemri</a> huazoj librin <a>"@aktiviteti.Libri.Titulli"</a></span>
+                                          </li>
+		                              }
+		                              else
+		                              {
+		                                  <li class="feed-item">
+                                              <div class="feed-date">@aktiviteti.Data.ToString("f")</div>
+                                              <span class="feed-text"><a>@aktiviteti.Klienti.Emri @aktiviteti.Klienti.Mbiemri</a> ktheu librin <a>"@aktiviteti.Libri.Titulli"</a></span>
+                                          </li>
+		                              }
+		                          } 
+                            </div> 
+                        </ul>
+                    </div>
+                </div>
+                <!-- /Feed Activity -->
+            </div>
+        </div>
+
+        <!-- Socail Media Follows -->
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card flex-fill fb sm-box">
+                    <i class="fab fa-facebook"></i>
+                    <h6>50,095</h6>
+                    <p>Pëlqime</p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card flex-fill twitter sm-box">
+                    <i class="fab fa-twitter"></i>
+                    <h6>48,596</h6>
+                    <p>Ndjekës</p>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card flex-fill insta sm-box">
+                    <i class="fab fa-instagram"></i>
+                    <h6>52,085</h6>
+                    <p>Ndjekës</p>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card flex-fill linkedin sm-box">
+                    <i class="fab fa-linkedin-in"></i>
+                    <h6>69,050</h6>
+                    <p>Ndjekës</p>
+                </div>
+            </div>
+        </div>
+        <!-- /Socail Media Follows -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Copyright © 2021 Menaxhimi Biblotekës.</p>
+    </footer>
+    <!-- /Footer -->
+
+</div>
+<!-- /Page Wrapper -->
